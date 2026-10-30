@@ -243,10 +243,24 @@
   </script>
 </head>
 <body>
-<div id="demoModeBar" style="position:sticky;top:0;z-index:10001;background:#ffe600;color:#111;padding:6px 12px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font:600 11px/1.3 'Segoe UI',Arial,sans-serif;box-shadow:0 1px 5px rgba(0,0,0,.18);">
+<style>
+:root{--demo-bar-h:34px;}
+body{padding-top:var(--demo-bar-h);}
+body.ds-on #dsSide{top:var(--demo-bar-h) !important;}
+body.ds-on .topbar{top:var(--demo-bar-h) !important;}
+</style>
+<div id="demoModeBar" style="position:fixed;top:0;left:0;right:0;z-index:10001;background:#ffe600;color:#111;padding:6px 12px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font:600 11px/1.3 'Segoe UI',Arial,sans-serif;box-shadow:0 1px 5px rgba(0,0,0,.18);">
   <span>AMBIENTE DE DEMONSTRAÇÃO · DADOS FICTÍCIOS · ALTERAÇÕES SALVAS SOMENTE NESTE NAVEGADOR</span>
   <button type="button" id="demoResetBtn" style="border:1px solid #111;background:transparent;color:#111;border-radius:5px;padding:3px 8px;font-weight:700;font-size:10px;cursor:pointer;">REINICIAR DEMONSTRAÇÃO</button>
 </div>
+<script>
+(function(){
+  const bar=document.getElementById('demoModeBar');
+  if(!bar) return;
+  const ajustar=()=>document.documentElement.style.setProperty('--demo-bar-h',bar.offsetHeight+'px');
+  ajustar(); addEventListener('resize',ajustar);
+})();
+</script>
 <script>
 document.getElementById('demoResetBtn')?.addEventListener('click',async()=>{
   if(!confirm('Reiniciar a demonstração? Todos os dados de teste salvos neste navegador serão apagados e os dados fictícios serão restaurados.')) return;
