@@ -5388,7 +5388,7 @@ async function renderEfetivo(){
   turnosDia.forEach(t=>{
     const sel=document.getElementById('nsel-'+t.key), txt=document.getElementById('ntxt-'+t.key), csel=document.getElementById('csel-'+t.key);
     if(!sel||!txt) return;
-    sel.addEventListener('change',()=>{ txt.style.display=sel.value==='__outro__'?'block':'none'; if(sel.value==='__outro__'){ txt.focus(); if(csel) csel.value=''; return; } if(csel&&sel.value&&colabMap[sel.value]) csel.value=colabMap[sel.value]; });
+    sel.addEventListener('change',()=>{ txt.style.display=sel.value==='__outro__'?'block':'none'; if(sel.value==='__outro__'){ txt.focus(); if(csel) csel.value=''; return; } if(csel&&sel.value&&colabMap[sel.value]){ const cg=colabMap[sel.value]; if(![...csel.options].some(o=>o.value===cg)) csel.add(new Option(cg,cg)); csel.value=cg; } });
   });
 
   app.querySelectorAll('[data-add-t]').forEach(btn=>{
